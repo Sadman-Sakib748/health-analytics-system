@@ -1,9 +1,7 @@
-// lib/ai-service.ts - Groq API with Latest Models (Updated)
-
 import { Medicine, TestResult, VitalSigns } from './medical';
 import Groq from 'groq-sdk';
 
-// Initialize Groq client
+
 const groq = process.env.NEXT_PUBLIC_GROQ_API_KEY && 
             process.env.NEXT_PUBLIC_GROQ_API_KEY !== 'your_groq_api_key_here'
   ? new Groq({
@@ -12,7 +10,7 @@ const groq = process.env.NEXT_PUBLIC_GROQ_API_KEY &&
     })
   : null;
 
-// Groq এর বর্তমান Vision মডেল (Llama 4 Scout - Latest)
+
 const VISION_MODEL = 'llama-4-scout-17b-16e-instruct';
 
 const SYSTEM_PROMPT = `You are a medical document analyzer for a healthcare management system. Extract structured medical information from prescription images or PDFs.
@@ -56,7 +54,6 @@ Classification rules:
 
 If information is not found in the document, use empty strings or null.`;
 
-// Main function - Groq API Enabled with Fallback
 export async function analyzeMedicalDocument(file: File): Promise<{
   success: boolean;
   data?: {
@@ -72,7 +69,7 @@ export async function analyzeMedicalDocument(file: File): Promise<{
 }> {
   console.log('📄 Analyzing file with Groq:', file.name);
   
-  // Check if Groq is available
+
   const hasValidApiKey = groq !== null;
   
   if (!hasValidApiKey) {
